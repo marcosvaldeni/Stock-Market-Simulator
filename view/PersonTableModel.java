@@ -13,7 +13,7 @@ public class PersonTableModel extends AbstractTableModel {
 	
 	private List<Company> db;
 	
-	private String[] colNames = {"ID", "Name", "Occupation", "Age Category", "Employment Category", "US Citizen", "Tax ID"};
+	private String[] colNames = {"Name", "Shares", "Varlor"};
 	
 	public PersonTableModel() {
 	}
@@ -34,7 +34,7 @@ public class PersonTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 7;
+		return 3;
 	}
 
 	@Override

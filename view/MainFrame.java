@@ -10,18 +10,26 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import controller.Controller;
+
 public class MainFrame extends JFrame {
 
 	private TextPanel textPanel;
 	private Toolbar toolbar;
+	private Controller controller;
+	private TablePanel tablePanel;
 
 	public MainFrame() {
 		super("Stock Market Simulator");
 
 		setLayout(new BorderLayout());
 
+		controller = new Controller();
 		toolbar = new Toolbar();
 		textPanel = new TextPanel();
+		tablePanel = new TablePanel();
+		
+		tablePanel.setData(controller.getCompany());
 		
 		setJMenuBar(createMenuBar());
 
@@ -31,9 +39,8 @@ public class MainFrame extends JFrame {
 			}
 		});
 
-
 		add(toolbar, BorderLayout.NORTH);
-		add(textPanel, BorderLayout.CENTER);
+		add(tablePanel, BorderLayout.CENTER);
 
 		setSize(600, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
