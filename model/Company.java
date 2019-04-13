@@ -38,10 +38,6 @@ public abstract class Company {
 		return shares;
 	}
 
-	public void setShares(int shares) {
-		this.shares = shares;
-	}
-
 	public double getSherePrice() {
 		return sherePrice;
 	}
@@ -52,6 +48,10 @@ public abstract class Company {
 	
 	public int getNumTrans() {
 		return 0;
+	}
+	
+	public void sellShare() {
+		shares--;
 	}
 	
 	

@@ -48,4 +48,8 @@ public class Investor {
 		this.transactions = transactions;
 	}
 	
+	public void buyShare(double sharePrice) {
+		budget -= sharePrice;
+	}
+	
 }
