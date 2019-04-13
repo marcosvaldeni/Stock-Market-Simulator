@@ -48,7 +48,8 @@ public class Investor {
 		this.transactions = transactions;
 	}
 	
-	public void buyShare(double sharePrice) {
+	public void buyShare(int transaction, double sharePrice) {
+		transactions.add(transaction);
 		budget -= sharePrice;
 	}
 	

@@ -84,7 +84,7 @@ public class Generator {
 		
 		ArrayList<Investor> investors = new ArrayList<>();
 		
-		for (int i = 100; i > 0; i--) {
+		for (int i = 0; i < 100; i++) {
 			Investor investor = new Investor(i+1, InverstorNameGen(), AmountGen(1000, 10000));
 			investors.add(investor);
 		}

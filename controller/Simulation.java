@@ -21,6 +21,8 @@ public class Simulation {
 	LinkedList<Integer> raffleInvestors;
 	
 	public Simulation() {
+		System.out.println(getMinShare());
+		System.out.println(getMaxBudget());
 		transactionAmount = 0;
 		this.rand = new Random();
 		this.transactions = new ArrayList<>();
@@ -28,7 +30,7 @@ public class Simulation {
 		this.raffleInvestors = new LinkedList<>();;
 	
 		for (Company company : companies) {
-			System.out.println("id: " + company.getId() + " name: " + company.getName() + " Share Price: " + company.getSherePrice());
+			System.out.println("id: " + company.getId() + " name: " + company.getName() + " Share Price: " + company.getSharePrice());
 		}
 		
 		int shares = 0;
@@ -46,8 +48,12 @@ public class Simulation {
 
 		
 		do {
+			System.out.println(getMaxSharePrice());
+			int transId = transId();
+			Transaction transaction;
 			System.out.println("---------------");
 			int investorId = this.raffleInvestor();
+			System.out.println(investorId);
 			Investor investor = null;
 			Company company = null;
 			for (Investor inv : investors) {
@@ -57,15 +63,25 @@ public class Simulation {
 			}
 			System.out.println("id: " + investor.getId() + " name: " + investor.getName() + " Budget: " + investor.getBudget());
 			int companyId = this.raffleCompany(investor.getBudget());
+			System.out.println(companyId);
 			for (Company comp : companies) {
 				if (comp.getId() == companyId) {
 					company = comp;
 				}
 			}
-			System.out.println("id: " + company.getId() + " name: " + company.getName() + " Share Price: " + company.getSherePrice());
-			investor.buyShare(company.getSherePrice());
-			company.sellShare();
-			transId();
+			System.out.println("id: " + company.getId() + " name: " + company.getName() + " Share Price: " + company.getSharePrice());
+			transaction = new Transaction(transId,investor.getId(), company.getId(), company.getSharePrice());
+			investor.buyShare(transId, company.getSharePrice());
+			company.sellShare(transId);
+			transactions.add(transaction);
+			
+			if (transactionAmount%10 == 0) {
+				for (Company comp : companies) {
+					if (comp.getTransNum() == 0) {
+						comp.depreciateShare();
+					}
+				}
+			}
 		} while (contin());
 		System.out.println(transactionAmount);
 		
@@ -91,8 +107,8 @@ public class Simulation {
 			
 			double minSharePrice = Double.MAX_VALUE;
 			for (Company company : companies) {
-				if (minSharePrice > company.getSherePrice()) {
-					minSharePrice = company.getSherePrice();
+				if (minSharePrice > company.getSharePrice()) {
+					minSharePrice = company.getSharePrice();
 				} 
 			}
 			
@@ -138,11 +154,33 @@ public class Simulation {
 		
 		double minSharePrice = Double.MAX_VALUE;
 		for (Company company : companies) {
-			if (minSharePrice > company.getSherePrice()) {
-				minSharePrice = company.getSherePrice();
+			if (minSharePrice > company.getSharePrice()) {
+				minSharePrice = company.getSharePrice();
 			} 
 		}
 		return minSharePrice;
+	}
+	
+	private double getMaxBudget() {
+		
+		double maxBudget = Double.MIN_VALUE;
+		for (Investor investor : investors) {
+			if (maxBudget < investor.getBudget()) {
+				maxBudget = investor.getBudget();
+			} 
+		}
+		return maxBudget;
+	}
+	
+	private double getMaxSharePrice() {
+		
+		double maxSharePrice = Double.MIN_VALUE;
+		for (Company company : companies) {
+			if (maxSharePrice < company.getSharePrice()) {
+				maxSharePrice = company.getSharePrice();
+			} 
+		}
+		return maxSharePrice;
 	}
 	
 	private void selectInvestors() {
@@ -158,7 +196,7 @@ public class Simulation {
 	private void selectCompanies(double budget) {
 		raffleCompanies.clear();
 		for (Company company : companies) {
-			if (budget >= company.getSherePrice() && company.getShares() > 0 ) {
+			if (budget >= company.getSharePrice() && company.getShares() > 0 ) {
 				raffleCompanies.add(company.getId());
 			}
 		}

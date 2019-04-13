@@ -4,8 +4,8 @@ public class Electric extends Company {
 
 	private String type;
 
-	public Electric(int id, String name, int shares, double sherePrice) {
-		super(id, name, shares, sherePrice);
+	public Electric(int id, String name, int shares, double sharePrice) {
+		super(id, name, shares, sharePrice);
 		this.type = "Electric";
 	}
 

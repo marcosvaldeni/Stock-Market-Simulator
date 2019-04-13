@@ -4,8 +4,8 @@ public class Mine extends Company {
 
 	private String type;
 
-	public Mine(int id, String name, int shares, double sherePrice) {
-		super(id, name, shares, sherePrice);
+	public Mine(int id, String name, int shares, double sharePrice) {
+		super(id, name, shares, sharePrice);
 		this.type = "Mine";
 	}
 
