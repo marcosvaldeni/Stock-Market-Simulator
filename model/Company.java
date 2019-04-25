@@ -7,65 +7,129 @@ public abstract class Company {
 	private int id;
 	private String name;
 	private int shares;
-	private double sharePrice;
+	private float sharePrice;
+	private String type;
 	private ArrayList<Integer> transactions;
 	
-	public Company(int id, String name, int shares, double sharePrice) {
+	public Company(int id, String name, int shares, float sharePrice, String type) {
 		this.id = id;
 		this.name = name;
 		this.shares = shares;
 		this.sharePrice = sharePrice;
-		this.transactions = new ArrayList<>();
+		this.type = type;
+		transactions = new ArrayList<>();
 	}
-
+	
+    /**
+     * Get the attribute id content
+     * @returns A integer, the data of id
+     */
 	public int getId() {
 		return id;
 	}
 
+    /**
+     * Set a data into the id
+     * @param id, The new data to be set into the id
+     */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+    /**
+     * Get the attribute name content
+     * @returns A string, the data of name
+     */
 	public String getName() {
 		return name;
 	}
 
+    /**
+     * Set a data into the name
+     * @param name, The new data to be set into the name
+     */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+    /**
+     * Get the shares budget content
+     * @returns A integer, the data of shares
+     */
 	public int getShares() {
 		return shares;
 	}
 
-	public double getSharePrice() {
-		return sharePrice;
+    /**
+     * Set a data into the shares
+     * @param shares, The new data to be set into the shares
+     */
+	public void setShares(int shares) {
+		this.shares = shares;
 	}
 
-	public void setSharePrice(double sharePrice) {
+    /**
+     * Get the attribute sharePrice content
+     * @returns A float, the data of sharePrice
+     */
+	public float getSharePrice() {
+		return sharePrice;
+	}
+	
+    /**
+     * Set a data into the sharePrice
+     * @param sharePrice, The new data to be set into the sharePrice
+     */
+	public void setSharePrice(float sharePrice) {
 		this.sharePrice = sharePrice;
 	}
-	
-	public int getNumTrans() {
-		return 0;
+
+    /**
+     * Get the attribute type content
+     * @returns A string, the data of type
+     */
+	public String getType() {
+		return type;
 	}
-	
+
+    /**
+     * Set a data into the type
+     * @param type, The new data to be set into the type
+     */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+    /**
+     * Set a data into the type
+     * @param type, The new data to be set into the type
+     */
 	public void sellShare(int transaction) {
 		transactions.add(transaction);
 		shares--;
-		valorizeShare();
+		riseSharePrice();
 	}
 	
+    /**
+     * Depreciate share price two per cent.
+     */
 	public void depreciateShare() {
-		sharePrice = sharePrice - (sharePrice * 0.2);
+		sharePrice = (float) (sharePrice - (sharePrice * 0.2));
 	}
 	
-	public void valorizeShare() {
+    /**
+     * Rise the share price two per cent, every ten shares sold.
+     */
+	public void riseSharePrice() {
 		if ((transactions.size()%10) == 0) {
-			sharePrice = sharePrice + (sharePrice * 0.2);
+			sharePrice = (float) (sharePrice + (sharePrice * 0.2));
 		}
 	}
 	
+    /**
+     * Get the number of transactions of the company
+     * @returns A integer, the number of transactions
+     */
 	public int getTransNum() {
 		return transactions.size();
 	}

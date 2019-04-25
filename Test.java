@@ -1,11 +1,11 @@
-import controller.Simulation;
+import model.Generator;
 
-public class Test {
+public class test {
 
 	public static void main(String[] args) {
-		
-		Simulation s1 = new Simulation();
-		
+
+
+
 	}
 
 }

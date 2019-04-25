@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-
 import javax.swing.SwingUtilities;
 
-import view.MainFrame;
+import view.startingScreen.StartFrame;
 
 public class App {
 
@@ -10,7 +8,7 @@ public class App {
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new MainFrame();
+				new StartFrame();
 			}
 		});	
 

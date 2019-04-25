@@ -1,34 +1,24 @@
 package view;
 
-
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.Company;
-
-
-
-public class PersonTableModel extends AbstractTableModel {
+public class InvestorLeastCompanyTableModel extends AbstractTableModel {
 	
-	private List<Company> db;
+	private List<String[]> db;
 	
-	private String[] colNames = {"Name", "Shares", "Varlor"};
+	private String[] colNames = {"Id", "Name", "Shares"};
 	
-	public PersonTableModel() {
+	public InvestorLeastCompanyTableModel() {
 	}
-	
-	
 	
 	@Override
 	public String getColumnName(int column) {
-		// TODO Auto-generated method stub
 		return colNames[column];
 	}
 
-
-
-	public void setData(List<Company> db) {
+	public void setData(List<String[]> db) {
 		this.db = db;
 	}
 
@@ -44,6 +34,16 @@ public class PersonTableModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
+		String[] company = db.get(row);
+		
+		switch(col) {
+		case 0:
+			return company[0];
+		case 1:
+			return company[1];
+		case 2:
+			return company[2];
+		}
 		
 		return null;
 	}
