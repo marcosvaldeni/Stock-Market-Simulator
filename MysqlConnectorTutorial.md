@@ -1,4 +1,4 @@
-# How to add an extenarl JAR
+# How to add an extenral JAR
 
 Just fallow this simple tutorial:
 
