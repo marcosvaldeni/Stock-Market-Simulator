@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+* Object Orientation with Design Patterns
+* CCT College Dublin
+* Marcos Valdeni Lucas 2016280
+*/
 public class DataSource {
 
 	// Database connection details
@@ -30,7 +35,10 @@ public class DataSource {
 
 	}
 
-	// Method to execute any SELECT query
+    /**
+     * Method to execute any SELECT query.
+     * @returns ResultSet, This returns a result of any select
+     */
 	public ResultSet select(String query) {
 		
 		// Execute the query
@@ -44,7 +52,10 @@ public class DataSource {
 		return rs;
 	}
 
-	// Method to execute any INSERT statement
+    /**
+     * Method to execute any INSERT statement
+     * @returns boolean, This returns a true if the insert occurred successfully and false if it fails
+     */
 	public boolean save(String query) {
 		
 		try {
@@ -58,7 +69,11 @@ public class DataSource {
 
 	}
 	
-	public int testConnection() throws Exception {
+    /**
+     * Test the connection could be established with the passed parameters on the first screen.
+     * @returns boolean, This returns true when the connection was successfully established and false when it fails
+     */
+	public boolean testConnection() throws Exception {
 		
 		try {
 
@@ -67,7 +82,7 @@ public class DataSource {
 
 			// Get a statement from the connection
 			stmt = conn.createStatement();
-			return 1;
+			return true;
 
 		} catch (SQLException ex) {
 
@@ -76,6 +91,9 @@ public class DataSource {
 		
 	}
 
+    /**
+     * Create a new connection with the database.
+     */
 	public void openConnection() {
 		// Establishing connection
 		try {
@@ -103,6 +121,9 @@ public class DataSource {
 		
 	}
 	
+    /**
+     * Close any connection with the database.
+     */
 	public void closeConnection() {
 		try {
 			stmt.close();

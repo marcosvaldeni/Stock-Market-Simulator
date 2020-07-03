@@ -114,7 +114,7 @@ public abstract class Company {
      * Depreciate share price two per cent.
      */
 	public void depreciateShare() {
-		sharePrice = (float) (sharePrice - (sharePrice * 0.2));
+		sharePrice -= (float) (sharePrice - (sharePrice * 0.2));
 	}
 	
     /**
@@ -122,7 +122,7 @@ public abstract class Company {
      */
 	public void riseSharePrice() {
 		if ((transactions.size()%10) == 0) {
-			sharePrice = (float) (sharePrice + (sharePrice * 0.2));
+			sharePrice += (float) (sharePrice * 2);
 		}
 	}
 	

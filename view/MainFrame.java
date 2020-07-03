@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -62,7 +61,11 @@ public class MainFrame extends JFrame {
 		simulationTablePanel.setData(controller.getSimulationList());
 		
 		setJMenuBar(createMenuBar());
-
+		
+	    /**
+	     * Set a ButtonListener and a actionButton to the button 'Start Simulation', 
+	     * when it would be clicked will create a new simulation and show to the user the results.
+	     */
 		toolbar.setToolBarListener(new ButtonListener() {
 			public void actionButton() {
 				
@@ -74,6 +77,9 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
+	    /**
+	     * When an old simulation is selected, this method updates all tabs.
+	     */
 		simulationTablePanel.setSimulationTablePanelListener(new TableListener() {
 			public void setSimulation(int id) {
 				
@@ -92,44 +98,75 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
-		private JMenuBar createMenuBar() {
+    /**
+     * Create a JMenuBar with all its JMenus and JMenuItems.
+     */
+	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		
+
 		JMenu simMenu = new JMenu("Simulation");
 		JMenuItem newSimulation = new JMenuItem("New Simulation");
 		JMenuItem exitItem = new JMenuItem("Exit");
-		
+
 		simMenu.add(newSimulation);
 		simMenu.addSeparator();
 		simMenu.add(exitItem);
-		
+
 		JMenu windowMenu = new JMenu("Window");
 		JMenu showMenu = new JMenu("Show");
-		
+
 		JCheckBoxMenuItem showSimulationList = new JCheckBoxMenuItem("Simulation List");
 		showSimulationList.setSelected(true);
-		
+
 		showMenu.add(showSimulationList);
 		windowMenu.add(showMenu);
-		
+
 		menuBar.add(simMenu);
 		menuBar.add(windowMenu);
-			
+
+	    /**
+	     * Set the action listener and the action event for when the client 
+	     * clicks on show menu and it is setting hide or show up.
+	     */
 		showSimulationList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) ev.getSource();
-				
-				if(menuItem.isSelected()) {
-					splitPane.setDividerLocation((int)simulationTablePanel.getMinimumSize().getWidth());
+
+				if (menuItem.isSelected()) {
+					splitPane.setDividerLocation((int) simulationTablePanel.getMinimumSize().getWidth());
 				}
-				
+
 				simulationTablePanel.setVisible(menuItem.isSelected());
 			}
 		});
 		
+		newSimulation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+
+				controller.createSimulation();
+				setData(controller.getSimulationId());
+				simulationTablePanel.setData(controller.getSimulationList());	
+				refreshData();
+				simulationTablePanel.refresh();
+
+			}
+		});
+		
+		exitItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+
+				System.exit(0);
+
+			}
+		});
+
 		return menuBar;
 	}
-		
+	
+    /**
+	 * Set the simulation data into all TablePanels.
+     * @param id, It is the id of selected simulation
+     */
 	public void setData(int id) {
 		companyHighestCapitalTablePanel.setData(controller.getCompanyHighestCapital(id));
 		companyLowestCapitalTablePanel.setData(controller.getCompanyLowestCapital(id));
@@ -139,6 +176,9 @@ public class MainFrame extends JFrame {
 		investorLeastCompanyTablePanel.setData(controller.getInvestorLeastCompany(id));
 	}
 	
+    /**
+     * Refreshes data on all TablePanels when it is called.
+     */
 	public void refreshData() {
 		companyHighestCapitalTablePanel.refresh();
 		companyLowestCapitalTablePanel.refresh();

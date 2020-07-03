@@ -1,5 +1,6 @@
 package view.startingScreen;
 
+import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,30 +27,23 @@ public class StartFrame extends JFrame {
 		super("Stock Market Simulator");
 
 		settingPanel = new SettingPanel();
-
 		
 		setLayout(new BorderLayout());
-
 		
 		settingPanel.setSettingListener(new SettingListener() {
 			public void actionButton(String[] string) {
 				try {
 					controller = Controller.getController(string);
-					int test = controller.testConnection();
 					
-					if (test == 1) {
+					if (controller.testConnection()) {
 						JOptionPane.showMessageDialog(StartFrame.this, "Connection established successfully!", "Database Message", JOptionPane.INFORMATION_MESSAGE);
 						new MainFrame(string);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(StartFrame.this, "Invalid connection information!", "Database Error", JOptionPane.ERROR_MESSAGE);
-						new StartFrame();
-						dispose();
 					}
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(StartFrame.this, "Error: " + e, "Database Error", JOptionPane.ERROR_MESSAGE);
-					new StartFrame();
-					dispose();
 				}
 			}
 		});

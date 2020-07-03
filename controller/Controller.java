@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.Instant;
@@ -12,9 +13,15 @@ import model.Investor;
 import model.Simulation;
 import model.Transaction;
 
+/**
+* Object Orientation with Design Patterns
+* CCT College Dublin
+* Marcos Valdeni Lucas 2016280
+*/
 public class Controller {
 	
-	private DataSource db;
+	private String[] string;
+	private static DataSource db;
 	private Simulation simulation;
 	private ArrayList<Company> companies;
 	private ArrayList<Investor> invertors;
@@ -29,16 +36,8 @@ public class Controller {
      * Constructor declared private to ensure that when an instance of the 
      * controller is called, it will be through the static 
      * getContoller method. So using the singleton design.
-     * @param array of Strings that will be used as password, 
-     * username and localhost of the database hosting.
      */
-	private Controller(String[] string) {
-		/*
-		 Construct receives a String[] where the position 0 user, position 1 password, 
-		 position 2 port and position 3 address. 
-		 Date that will be resends to the DataSource class.
-		 */
-		db = new DataSource(string);
+	private Controller() {
 	}
 	
     /**
@@ -49,8 +48,14 @@ public class Controller {
      * username and localhost on the database hosting.
      */
 	public static Controller getController(String[] string) {
+		/*
+		 getController receives a String[] where the position 0 user, position 1 password, 
+		 position 2 port and position 3 address. 
+		 Date that will be resends to the DataSource class.
+		 */
+		db = new DataSource(string);
 		if (controller == null) {
-			controller = new Controller(string);
+			controller = new Controller();
 			return controller;
 		} else {
 			return controller;
@@ -224,7 +229,10 @@ public class Controller {
 		
 	}
 	
-	//List of Simulation
+    /**
+     * Get all the simulations recorded so far.
+     * @returns ArrayList, A list of all simulations recorders 
+     */
 	public ArrayList getSimulationList() {
 		
 		// Create a database connection 
@@ -254,7 +262,10 @@ public class Controller {
 		return simulations;
 	}
 	
-	//Company with the lowest capital 
+    /**
+     * Get a list of companies with the lowest capital.
+     * @returns ArrayList, A list of companies 
+     */
 	public ArrayList getCompanyLowestCapital(int simulation) {
 		
 		// Create a database connection 
@@ -264,7 +275,6 @@ public class Controller {
 		
 		String query = "SELECT companies.company_id AS id, " + 
 				"companies.company_name AS name, " + 
-				"(COUNT(*) + companies.company_shares) AS shareTotal, " + 
 				"TRUNCATE(((COUNT(*) + companies.company_shares) * companies.company_sharePrice), 2) AS capital " + 
 				"FROM companies LEFT JOIN transactions " + 
 				"ON companies.company_id = transactions.company_id " + 
@@ -277,7 +287,7 @@ public class Controller {
 		try {
 			while(rs.next()){
 				
-				String[] str = {rs.getString("id"), rs.getString("name"), rs.getString("shareTotal"), rs.getString("capital")};
+				String[] str = {rs.getString("id"), rs.getString("name"), rs.getString("capital")};
 				
 				alr.add(str);
 				
@@ -288,7 +298,10 @@ public class Controller {
 		return alr;
 	}
 	
-	//Company with the highest capital
+    /**
+     * Get a list of companies with the highest capital.
+     * @returns ArrayList, A list of companies 
+     */
 	public ArrayList getCompanyHighestCapital(int simulation) {
 		
 		// Create a database connection 
@@ -322,7 +335,10 @@ public class Controller {
 		return alr;
 	}
 	
-	//Investors that have Invested in the most Companies
+    /**
+     * Get a list of investors that have Invested in the most Companies.
+     * @returns ArrayList, A list of investors 
+     */
 	public ArrayList getInvestorMostCompanies(int simulation) {
 		
 		// Create a database connection 
@@ -352,7 +368,10 @@ public class Controller {
 		return alr;
 	}
 	
-	//Investor with the highest number of shares
+    /**
+     * Get a list of investors  with the highest number of shares.
+     * @returns ArrayList, A list of investors 
+     */
 	public ArrayList getInvestorHighestShare(int simulation) {
 		
 		// Create a database connection 
@@ -385,7 +404,10 @@ public class Controller {
 		return alr;
 	}
 	
-	//Investor with the lowest number of shares
+    /**
+     * Get a list of investors with the lowest number of shares.
+     * @returns ArrayList, A list of investors 
+     */
 	public ArrayList getInvestorLowestShare(int simulation) {
 		
 		// Create a database connection 
@@ -418,7 +440,10 @@ public class Controller {
 		return alr;
 	}
 	
-	//Investors that have invested in the most companies
+    /**
+     * Get a list of investors that have invested in the most companies.
+     * @returns ArrayList, A list of investors 
+     */
 	public ArrayList getInvestorMostCompany(int simulation) {
 		
 		// Create a database connection 
@@ -448,7 +473,10 @@ public class Controller {
 		return alr;
 	}
 	
-	//Investors that have invested in the least number of companies
+    /**
+     * Get a list of investors that have invested in the least number of companies.
+     * @returns ArrayList, A list of investors 
+     */
 	public ArrayList getInvestorLeastCompany(int simulation) {
 		
 		// Create a database connection 
@@ -478,10 +506,22 @@ public class Controller {
 		return alr;
 	}
 	
-	public int testConnection() throws Exception {
+    /**
+     * Test the connection could be established with the passed parameters on the first screen.
+     * @returns boolean, This returns true when the connection was successfully established and false when it fails
+     */
+	public boolean testConnection() throws Exception {
 		
 		return db.testConnection();
 		
+	}
+
+	public String[] getString() {
+		return string;
+	}
+
+	public void setString(String[] string) {
+		this.string = string;
 	}
 	
 }

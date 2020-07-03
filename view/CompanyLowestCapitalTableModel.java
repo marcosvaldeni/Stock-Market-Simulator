@@ -8,7 +8,7 @@ public class CompanyLowestCapitalTableModel extends AbstractTableModel {
 	
 	private List<String[]> db;
 	
-	private String[] colNames = {"Id", "Name", "Shares"};
+	private String[] colNames = {"Id", "Name", "Capital"};
 	
 	public CompanyLowestCapitalTableModel() {
 	}

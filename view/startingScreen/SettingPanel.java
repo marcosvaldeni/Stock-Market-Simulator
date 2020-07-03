@@ -176,6 +176,11 @@ public class SettingPanel extends JPanel implements ActionListener {
 			settingListener.actionButton(string);
 			
 		}
+		if(clicked == cancelButton) {
+			
+			System.exit(0);
+			
+		}
 		
 	}
 
