@@ -50,7 +50,7 @@ To prepare the database, run the content of the file [StockMarketSimulator.sql](
 
 Once the program is running, it will request Database preferences: `user`, `password`, `port` and `host`.
 
-<p align="center"><img src=".github/home.gif?raw=true"/></p>
+<p align="center"><img src=".github/database.png?raw=true"/></p>
 
 **Path for MySQL Connector**
 
