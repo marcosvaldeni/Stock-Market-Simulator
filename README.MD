@@ -46,9 +46,9 @@ SSH URLs provide access to a Git repository via SSH, a secure protocol. If you h
 
 To prepare the database, run the content of the file [StockMarketSimulator.sql](https://github.com/marcosvaldeni/Stock-Market-Simulator/blob/master/StockMarketSimulator.sql) on the phpMyAdmin `console`.
 
-**Setup the credetials**
+**Setup the credentials**
 
-Once the program is running, it will request Database preferences: `user`, `password`, `port` and `host`.
+Once the program is running, it will request database credentials: `user`, `password`, `port` and `host`.
 
 <p align="center"><img src=".github/database.png?raw=true"/></p>
 
